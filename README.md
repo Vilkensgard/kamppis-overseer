@@ -15,6 +15,12 @@ To start a development server
 ./gradlew bootRun
 ```
 
+To test that the server responds, either `curl` or open the following address in your browser.
+It should display a "Hello World" message.
+```
+http://localhost:8080/
+```
+
 ## Tips
 
 ### Useful links
