@@ -32,7 +32,16 @@ repositories {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
-    compile("org.springframework.boot:spring-boot-starter-web")
+    compile group: 'com.h2database', name: 'h2'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
+    // tag::jetty[]
+    compile("org.springframework.boot:spring-boot-starter-web") {
+        exclude module: "spring-boot-starter-tomcat"
+    }
+    compile("org.springframework.boot:spring-boot-starter-jetty")
+    compile("org.springframework.boot:spring-boot-devtools")
+    // end::jetty[]
     testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile "org.mockito:mockito-core:2.+"
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
