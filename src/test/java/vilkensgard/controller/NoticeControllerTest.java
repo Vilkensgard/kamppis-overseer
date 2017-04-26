@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import vilkensgard.domain.Notice;
 import vilkensgard.repository.NoticeRepository;
 
@@ -37,6 +38,9 @@ public class NoticeControllerTest {
     private NoticeRepository noticeRepository;
 
     @Test
+    @Transactional
+    // DB transactions will be rolled back -> no need to clear tables. See below link for more info
+    // https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/html/integration-testing.html#testcontext-tx
     public void getNotices() throws Exception {
         givenThereAreNoticesInTheDatabase();
         ResultActions resultActions = whenGetNoticesIsCalled();
@@ -44,7 +48,6 @@ public class NoticeControllerTest {
     }
 
     private void givenThereAreNoticesInTheDatabase() {
-        noticeRepository.deleteAll();
         noticeRepository.save(new Notice());
         noticeRepository.save(new Notice());
     }
